@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Ceremony for Senior Chief Samuel R. Gonzalez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application transforms the linear event program into an interactive digital guide. The structure uses distinct sections: a main "Order of Events" with clickable items to reveal details, a "Tribute" section for biographical context, and a "Key Personnel" section for clarity. This thematic grouping, combined with click-to-explore interactivity, is chosen over a static list to enhance user engagement and provide a more comprehensive, easy-to-navigate experience for ceremony attendees. -->
+    <!-- Visualization & Content Choices: Event Program -> Goal: Organize/Inform -> Viz: Interactive vertical timeline/list -> Interaction: Click on an event to toggle visibility of a details panel. Justification: This adds depth and encourages exploration without cluttering the main view. Library: Vanilla JS for DOM manipulation. Tribute Section -> Goal: Inform -> Viz: Styled text block. Personnel Section -> Goal: Inform -> Viz: Styled list. Justification: These present textual information clearly. NO SVG/Mermaid used as no complex diagrams or charts are needed for this report. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%281795-1818%29.svg/1200px-Flag_of_the_United_States_%281795-1818%29.svg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        .details-panel {
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .details-panel.open {
+            max-height: 500px;
+        }
+        .event-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .event-item {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+    </style>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+</head>
+<body class="bg-stone-50 text-slate-800">
+    <!-- United States Navy Emblems in the top corners -->
+    <img src="https://anchorup1893.com/wp-content/uploads/2022/12/kiss-cut-stickers-5.5x5.5-default-6393dcaec18c6.png" alt="United States Navy Emblem" class="fixed top-4 left-4 z-50 w-12 h-12 sm:w-16 sm:h-16 drop-shadow-sm">
+    <img src="https://anchorup1893.com/wp-content/uploads/2022/12/kiss-cut-stickers-5.5x5.5-default-6393dcaec18c6.png" alt="United States Navy Emblem" class="fixed top-4 right-4 z-50 w-12 h-12 sm:w-16 sm:h-16 drop-shadow-sm">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <header class="text-center mb-10 border-b-2 border-slate-300 pb-6">
+            <h2 class="text-base sm:text-lg font-semibold text-sky-800 tracking-widest uppercase">Honoring the Retirement Of</h2>
+            <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mt-2">Senior Chief</h2>
+            <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900">Samuel R. Gonzalez</h2>
+            <p class="text-lg text-slate-600 mt-4">Celebrating 20 years of dedicated service to the United States Navy</p>
+            <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 text-slate-700">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+                    <span>17 October 2025</span>
+                </div>
+                <div class="flex items-center gap-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                    <span>Bell Works, 101 Crawfords Corner Rd.</span>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <section id="program" class="mb-12">
+                <h2 class="text-3xl font-bold text-center mb-2 text-slate-900">Order of Events</h2>
+                <p class="text-center text-slate-600 mb-8">Welcome to the retirement ceremony for Senior Chief Gonzalez. Below is the sequence of events for today's ceremony. Click on any item to learn more about its significance.</p>
+                <div class="space-y-4">
+                    
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">1.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Arrival of Guests</h3>
+                            </div>
+                            <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">Guests are invited to arrive and be seated. Music will be provided during this time as we await the start of the official ceremony.</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">2.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Official Party's Entry</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">The official party, led by CAPT Kent D. Smith, will enter and take their designated places on the stage.</p>
+                        </div>
+                    </div>
+
+                     <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">3.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Invocation</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">Presented by LT Daniel A. Velez-Acevedo, the invocation is a formal prayer to commence the ceremony.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">4.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">National Anthem & Presentation of Colors</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">All guests are requested to stand and render honors. The National Anthem will be performed by Mikayla Sottile, and colors presented by the NWS Earle Color Guard.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                             <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">5.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Opening Remarks & Introductions</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">Welcome remarks will be delivered, followed by the introduction of the Presiding Officer.</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                           <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">6.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Presentation of Awards & Remarks</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">Senior Chief Gonzalez will be presented with his end-of-tour awards and certificates, followed by remarks from guest speakers CAPT Brian Forster and HMCS (Ret.) Torrie Rogers.</p>
+                            <div class="p-4 sm:p-5 flex flex-col sm:flex-row justify-center items-center gap-4">
+                                <div class="text-slate-600">
+                                    <p class="text-center mb-2">View guest speaker biographies.</p>
+                                </div>
+                                <a href="https://drive.google.com/file/d/1szE2hzTNqszRbaKPz6xvpZAtUKmKPjVC/view?usp=sharing" target="_blank" class="inline-block px-6 py-3 bg-sky-800 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition duration-300">
+                                    CAPT Forster's Bio (PDF)
+                                </a>
+                                <a href="https://drive.google.com/file/d/1FsFQt2JNztYMsJtUDAz-Ak77HOklNlen/view?usp=drive_link" target="_blank" class="inline-block px-6 py-3 bg-sky-800 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition duration-300">
+                                    Torrie Rogers' Bio (PDF)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">7.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Presentations for Loved Ones</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">Certificates and gifts are presented to the family and loved ones of Senior Chief Gonzalez in recognition of their support and sacrifice throughout his career.</p>
+                        </div>
+                    </div>
+                    
+                     <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">8.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Senior Chief Gonzalez’s Remarks</h3>
+                            </div>
+                            <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">The honoree, Senior Chief Samuel R. Gonzalez, will address the guests with his personal remarks.</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">9.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Presentations & Readings</h3>
+                            </div>
+                             <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">A series of traditional presentations and readings will take place, including the Shadow Box, Retirement Certificate, Reading of Old Glory by Master Chief Jacob Gotliboski, and the CPO Retirement Creed read by MAC (Ret.) James Denning.</p>
+                        </div>
+                    </div>
+
+                     <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">10.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Reading of the Watch & Going Ashore</h3>
+                            </div>
+                            <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">A time-honored tradition where the service member is relieved of their duties for the final time. Performed by LT. Peter Sangenette, this signifies the end of a career. The ceremony concludes with "Going Ashore" honors and piping.</p>
+                        </div>
+                    </div>
+                    <div class="event-item bg-white rounded-lg shadow-sm border border-slate-200 cursor-pointer overflow-hidden">
+                        <div class="p-4 sm:p-5 flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-bold text-sky-800 w-6 text-center">11.</span>
+                                <h3 class="font-semibold text-lg text-slate-800">Benediction</h3>
+                            </div>
+                            <span class="text-slate-400 transform transition-transform duration-300">&#9662;</span>
+                        </div>
+                        <div class="details-panel bg-slate-50 border-t border-slate-200">
+                           <p class="p-4 sm:p-5 text-slate-600">A concluding blessing will be offered by Pastor Mathew Gonzalez to close the ceremony.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <section id="tribute" class="my-12 p-6 bg-white rounded-lg shadow-sm border border-slate-200">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">A Career of Service</h2>
+                <div class="text-slate-600 space-y-4 text-left md:text-justify">
+                    <p>
+                        <img src="https://i.imgur.com/aBeT3nz.jpeg" alt="Senior Chief Gonzalez in uniform." class="w-32 md:w-48 rounded-lg shadow-lg float-right ml-4 mb-2">
+                        Senior Chief Gonzalez, a proud New Jersey native from Old Bridge, began his Navy journey in August 2005. After his initial training, he was assigned to Strike Fighter Squadron 31 (VF-31), where he became a plane captain. He holds a special place in Navy history as part of the final F-14D Tomcat maintenance crew.
+                    </p>
+                    <p>In 2007, Senior Chief Gonzalez transitioned to Master-At-Arms and headed to his first overseas duty station in Bahrain. There, he was entrusted with the critical role of Coxswain, piloting Harbor Security Vessels to protect the 5th Fleet. This achievement earned him the prestigious Small Craft Insignia device. His next tour took him to Greece, where he took on numerous responsibilities as a patrolman, Watch Commander, and weapons armorer. His leadership was recognized in 2010 when he was promoted to E-5 and named Sailor of the Year.</p>
+                    <p>His career truly took off at Maritime Expeditionary Security Squadron 4 in Virginia. As a Mission Commander and team member for specialized units, he completed three deployments, navigating diverse and complex environments. He was promoted to E-6 and led his platoon as the Leading Petty Officer.</p>
+                    <p>In 2014, Senior Chief Gonzalez's dedication led him to Naval Expeditionary Intelligence Command in Virginia Beach, where he served as Command Master-At-Arms. His hard work was honored with the Senior Sailor of the Year award in 2016 and a promotion to Chief Petty Officer. His next assignment took him to San Diego, California, aboard the USS LAKE CHAMPLAIN (CG-57). As the Command Chief Master-At-Arms, he was a key legal advisor to the ship's leadership during a deployment that spanned the Pacific.</p>
+                    <p>His final overseas tour was in Rota, Spain, where he was the Physical Security Leading Chief Petty Officer. Promoted to E-8, he was later named the Anti-terrorism and Physical Security Leading Chief Petty Officer. Senior Chief Gonzalez concluded his distinguished career back home in New Jersey, serving as the Senior Enlisted Leader for Naval Security Forces at Naval Weapons Station Earle.</p>
+                    <p>A graduate of the U.S. Navy Senior Enlisted Academy, Senior Chief Gonzalez earned a Bachelor of Science in Criminal Justice. He holds several prestigious warfare qualifications, including Enlisted Expeditionary Warfare Specialist and Enlisted Aviation Warfare Specialist. His service has been recognized with multiple awards, including the Navy and Marine Corps Commendation Medal (five awards) and the Navy and Marine Corps Achievement Medal (six awards). He plans to retire with his wife and their puppy, Frank Sinatra, and pursue his passion for real estate in New Jersey.</p>
+                    <p class="text-center italic text-lg text-slate-600 mt-6">
+                        "I can imagine no more rewarding a career. And any man who may be asked in this century what he did to make his life worthwhile, I think can respond with a certain pride and tradition: 'I served in the United States Navy.'"
+                    </p>
+                    <p class="text-center text-sm font-semibold text-slate-500">- John F. Kennedy</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 pt-6 border-t-2 border-slate-300">
+            <p class="text-slate-600">Thank you for joining us to celebrate and honor the career of Senior Chief Samuel R. Gonzalez.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const eventItems = document.querySelectorAll('.event-item');
+
+            eventItems.forEach(item => {
+                const header = item.querySelector('.p-4');
+                const details = item.querySelector('.details-panel');
+                const arrow = item.querySelector('span.text-slate-400');
+
+                header.addEventListener('click', () => {
+                    const isOpen = details.classList.contains('open');
+                    
+                    document.querySelectorAll('.details-panel.open').forEach(openPanel => {
+                        openPanel.classList.remove('open');
+                    });
+                     document.querySelectorAll('.event-item .text-slate-400').forEach(openArrow => {
+                        openArrow.style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isOpen) {
+                        details.classList.add('open');
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        arrow.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
